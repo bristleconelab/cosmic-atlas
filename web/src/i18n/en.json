@@ -269,6 +269,7 @@
   "dur.gyr": "{n, plural, other {# billion years}}",
   "time.ago": "{t} ago",
   "lookback.left": "light left {ago}",
+  "lookback.beyondCmb": "beyond the CMB, no light reaches us from here",
   "kind.star": "Star",
   "kind.wd": "White dwarf",
   "kind.galaxy": "Galaxy",

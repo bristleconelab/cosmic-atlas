@@ -1,7 +1,7 @@
 /** Distance units and formatting in the current UI language. Everything in the viewer is parsec. */
 
 import { decimalSep, fmtMax, t } from '../i18n';
-import { lookbackTimeGyr, redshiftFromComoving } from './cosmology';
+import { Z_CMB, comovingDistancePc, lookbackTimeGyr, redshiftFromComoving } from './cosmology';
 
 export const PC_PER_AU = 4.84813681109536e-6; // 1 AU / 1 pc (IAU 2012 exact AU, 648000/pi AU per pc)
 export const LY_PER_PC = 3.261563777167433;
@@ -89,13 +89,21 @@ export function formatLightTime(pc: number): string {
   return q('unit.gly', yr / 1e9);
 }
 
+/** Comoving radius of the last scattering surface: no light from farther away reaches us. */
+const CMB_PC = comovingDistancePc(Z_CMB);
+
 /**
  * How long ago light left an object at comoving distance d (from the Sun).
  * Below 10 Mpc this is d/c; beyond it uses Planck18 redshift and lookback time, because
  * comoving distance and light-travel distance diverge at cosmological range.
+ * Beyond the CMB shell there is no light to date, so neither a time nor a redshift is given.
  * `ago` is the bare phrase ("2.1 billion years ago"), `text` the full one ("light left …").
  */
 export function describeLookback(dPc: number): { text: string; ago: string; z?: number } {
+  if (dPc > CMB_PC) {
+    const beyond = t('lookback.beyondCmb');
+    return { text: beyond, ago: beyond };
+  }
   let sec: number;
   let z: number | undefined;
   if (dPc < 1e7) sec = (dPc / PC_PER_AU) * LIGHT_SEC_PER_AU;

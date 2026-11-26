@@ -269,6 +269,7 @@
   "dur.gyr": "{n, plural, other {# milliard yil}}",
   "time.ago": "{t} oldin",
   "lookback.left": "yorugʻlik {ago} chiqqan",
+  "lookback.beyondCmb": "KMF ortida, bu yerdan yorugʻlik bizga yetib kelmaydi",
   "kind.star": "Yulduz",
   "kind.wd": "Oq mitti",
   "kind.galaxy": "Galaktika",

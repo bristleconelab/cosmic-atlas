@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { describeLookback } from '../src/math/units';
 import { comovingDistancePc, lookbackTimeGyr, redshiftFromComoving, DH_PC, TH_GYR, Z_CMB } from '../src/math/cosmology';
 
 // astropy Planck18 values: DH, tH from astropy; distances by numpy-integrating Planck18.inv_efunc
@@ -39,5 +40,14 @@ describe('Planck18 at the last scattering surface (CMB shell radius)', () => {
     expect(Math.abs(lookbackTimeGyr(z) / 13.786513101289533 - 1)).toBeLessThan(1e-5);
     // beyond z = 20 (10.96 Gpc) the inverse keeps rising instead of sticking at 20
     expect(redshiftFromComoving(12e9)).toBeGreaterThan(40);
+  });
+});
+
+describe('lookback beyond the last scattering surface', () => {
+  it('gives no time or redshift past the CMB shell, where the inverse would stick at z = 10240', () => {
+    expect(describeLookback(13.8e9).z).toBeGreaterThan(700);
+    const far = describeLookback(20e9);
+    expect(far.z).toBeUndefined();
+    expect(far.ago).not.toMatch(/\d/);
   });
 });

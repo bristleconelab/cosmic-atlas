@@ -269,6 +269,7 @@
   "dur.gyr": "{n, plural, other {# млрд лет}}",
   "time.ago": "{t} назад",
   "lookback.left": "свет вышел {ago}",
+  "lookback.beyondCmb": "за реликтовым излучением, свет отсюда до нас не доходит",
   "kind.star": "Звезда",
   "kind.wd": "Белый карлик",
   "kind.galaxy": "Галактика",
